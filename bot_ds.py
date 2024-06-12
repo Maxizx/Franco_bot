@@ -3,16 +3,20 @@ from clases.class_operador import operador
 from discord.ext import commands
 from clases.class_aux import aux
 from clases.class_matcheo import match
+from clases.class_sqlite import manageDB
 
 intents = discord.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix='-', intents=intents)
 matcheo = match()
+db = manageDB()
+
+db.crear_tabla()
+matcheo.cargar_db(db.recibir_datos())
 
 def check_channel(ctx):
      return ctx.channel.id == 1250230495128850494
-
 
 @commands.command()
 @commands.check(check_channel)
@@ -20,9 +24,11 @@ async def test(ctx,login,nombre,ingresado_franco_ofrecido=None , ingresado_franc
     
         if not(ingresado_franco_ofrecido == None or ingresado_franco_pedido == None):
             ingresado_franco_ofrecido = aux.format_date(ingresado_franco_ofrecido)
-            # ingresado_franco_ofrecido2 = aux.format_date(ingresado_franco_ofrecido2)
             ingresado_franco_pedido = aux.format_date(ingresado_franco_pedido)
+
+            db.agregar_datos(login,nombre,ingresado_franco_ofrecido,ingresado_franco_pedido)
             op_ingresado = operador(login=login,nombre=nombre,franco_ofrecido=ingresado_franco_ofrecido,franco_pedido=ingresado_franco_pedido)
+
             matcheo.add_lists(op_ingresado)
             msj = matcheo.buscar_V4(op_ingresado)
             print(f" {msj}<-- msj")

@@ -10,6 +10,11 @@ class match:
 
     def get_list(self):
         return self.lista_ops
+    
+    def cargar_db(self,lista:list[operador]):
+        for op in lista:
+            self.add_lists(op)
+        print("Se cargó lista con exito")
 
     def buscar_V3(self):
         msj = ""
