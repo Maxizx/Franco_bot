@@ -17,7 +17,7 @@ class match:
         copia_lista = self.lista_ops.copy()
         for op_necesita in self.lista_ops:
             for op_ofrece in copia_lista:
-                if op_necesita != op_ofrece:
+                if op_necesita.get_id() != op_ofrece.get_id():
                      francos_ofrecidos_op = op_ofrece.get_francos_ofrecidos()
                      franco_necesitado = op_necesita.get_francos_pedidos()
                     #  for franco in francos_ofrecidos_op:
@@ -32,7 +32,7 @@ class match:
     def buscar_V4(self, op_necesita:operador):
         msj = ""
         for op_ofrece in self.lista_ops:
-            if op_necesita != op_ofrece:
+            if op_necesita.get_id() != op_ofrece.get_id():
                 francos_ofrecidos_op = op_ofrece.get_francos_ofrecidos()
                 franco_necesitado = op_necesita.get_francos_pedidos()
                 # for franco in francos_ofrecidos_op:
