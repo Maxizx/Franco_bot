@@ -31,13 +31,15 @@ class match:
                         op_nombre_aceptante = op_necesita.get_nombre()
                         msj =f"el operador: **{op_nombre_donante}** ofrece el franco: **{francos_ofrecidos_op}** que: **{op_nombre_aceptante}** necesita "
                         lista_encontrados.append(msj)
+        
         return lista_encontrados
                         
 
     def buscar_V4(self, op_necesita:operador):
         msj = ""
+        lista_resultados = list()
         for op_ofrece in self.lista_ops:
-            if op_necesita.get_id() != op_ofrece.get_id():
+            if op_necesita.get_nombre() != op_ofrece.get_nombre():
                 francos_ofrecidos_op = op_ofrece.get_francos_ofrecidos()
                 franco_necesitado = op_necesita.get_francos_pedidos()
                 # for franco in francos_ofrecidos_op:
@@ -45,7 +47,6 @@ class match:
                     op_nombre_donante = op_ofrece.get_nombre()
                     op_nombre_aceptante = op_necesita.get_nombre()
                     msj =f"el operador: **{op_nombre_donante}** ofrece el franco: **{francos_ofrecidos_op}** que: **{op_nombre_aceptante}** necesita"
-                else:
-                    msj = "No se encontró match todavia"
+                    lista_resultados.append([op_nombre_donante,francos_ofrecidos_op,op_nombre_aceptante]) 
 
-        return msj
+        return lista_resultados

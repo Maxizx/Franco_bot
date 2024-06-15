@@ -15,30 +15,35 @@ db = manageDB()
 db.crear_tabla()
 matcheo.cargar_db(db.recibir_datos())
 
-def check_channel(ctx):
-     return ctx.channel.id == 1250230495128850494
+# def check_channel(ctx):
+#      return ctx.channel.id == 1250230495128850494
 
 @commands.command()
-@commands.check(check_channel)
-async def test(ctx,login,nombre,ingresado_franco_ofrecido=None , ingresado_franco_pedido=None):
-    
+# @commands.check(check_channel)
+async def test(ctx,ingresado_franco_ofrecido=None , ingresado_franco_pedido=None):
+
         if not(ingresado_franco_ofrecido == None or ingresado_franco_pedido == None):
             ingresado_franco_ofrecido = aux.format_date(ingresado_franco_ofrecido)
             ingresado_franco_pedido = aux.format_date(ingresado_franco_pedido)
-
-            db.agregar_datos(login,nombre,ingresado_franco_ofrecido,ingresado_franco_pedido)
-            op_ingresado = operador(login=login,nombre=nombre,franco_ofrecido=ingresado_franco_ofrecido,franco_pedido=ingresado_franco_pedido)
+            nombre = ctx.author
+            db.agregar_datos(nombre,ingresado_franco_ofrecido,ingresado_franco_pedido)
+            op_ingresado = operador(nombre=nombre,franco_ofrecido=ingresado_franco_ofrecido,franco_pedido=ingresado_franco_pedido)
 
             matcheo.add_lists(op_ingresado)
-            msj = matcheo.buscar_V4(op_ingresado)
-            print(f" {msj}<-- msj")
-            await ctx.send(f"Agregado con exito. {msj}")
+            lista_resultados = matcheo.buscar_V4(op_ingresado)
+            # op_nombre_donante,francos_ofrecidos_op,op_nombre_aceptante
+            for resultado in lista_resultados:
+                 await ctx.send(f"{resultado[0].mention} tiene el franco ({resultado[1]}), que {resultado[2].mention}")
+                 op_necesita = resultado[0]
+                 op_ofrece = resultado[2]
+                 await op_necesita.send(f"{resultado[2]} Tiene el franco q necesitás: {resultado[1]} y pide el q ofreces")
+                 await op_ofrece.send(f"{resultado[0]} pide el franco q ofreces: {resultado[1]} y tiene el q necesitas.")
+                 print(f"log: Se mandó priv a {op_necesita} y {op_ofrece}")
+            await ctx.send(f"Agregado con exito.")
         else:
             await ctx.send(f"**Error de capa 8**. francos faltantes o mal escrito")
             await ctx.send(f"Soporte: Tener dos fechas ingresadas con el formato de fecha **dd/mm/aaaa**")
              
-
-
 @commands.command()
 async def list(ctx):
     lista = matcheo.get_list()
@@ -52,12 +57,22 @@ async def tinder(ctx):
         for msj in lista:
              await ctx.send(f"{msj}\n")
 
+@commands.command()
+async def msj(ctx):
+     autor = ctx.author
+     
+     await autor.send(autor)
 
 bot.add_command(test)
 bot.add_command(list)
 bot.add_command(tinder)
+bot.add_command(msj)
 
-bot.run('MTIyMDkyNTcxMzU3NDY1ODExOQ.GJIK1U.ERyzS-pKV20LfVIQun24X0l2f9i17RYL5GWid0')
+
+
+
+bot.run('MTI1MTM1MzI3Mzk2OTkzODQ5NA.GGvk56.atzYCvMV5HLIMNHMEnnTYLQJqUIbiqvbvifHH0')
+# bot.run('MTIyMDkyNTcxMzU3NDY1ODExOQ.GJIK1U.ERyzS-pKV20LfVIQun24X0l2f9i17RYL5GWid0') BOT
 
 
 # $test 321321 juan 01/12/2004 01/12/2004 01/12/2004 

@@ -8,11 +8,11 @@ class manageDB:
 
     def crear_tabla(self):
         with sqlite3.connect(self.nombre_del_archivo) as conexion:
-                conexion.execute("create table if not exists solicitudes (login INTEGER,nombre TEXT,franco_ofrecido DATE,franco_pedido DATE);")
+                conexion.execute("create table if not exists solicitudes (nombre TEXT,franco_ofrecido DATE,franco_pedido DATE);")
 
-    def agregar_datos(self,login,nombre,franco_ofrecido,franco_pedido):
+    def agregar_datos(self,nombre,franco_ofrecido,franco_pedido):
         with sqlite3.connect(self.nombre_del_archivo) as conexion:
-            conexion.execute("insert into solicitudes(login,nombre,franco_ofrecido,franco_pedido) values (?,?,?,?)", (login,nombre,franco_ofrecido,franco_pedido))
+            conexion.execute("insert into solicitudes(nombre,franco_ofrecido,franco_pedido) values (?,?,?)", (str(nombre),franco_ofrecido,franco_pedido))
             conexion.commit()#
 
 
@@ -21,7 +21,7 @@ class manageDB:
             cursor = conexion.execute("SELECT * FROM solicitudes;")
             lista = []
             for fila in cursor:
-                op = operador(fila[0],fila[1],fila[2],fila[3])
+                op = operador(fila[0],fila[1],fila[2])
                 lista.append(op)
             return lista
 
