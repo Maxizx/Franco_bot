@@ -71,8 +71,8 @@ bot.add_command(msj)
 
 
 
-bot.run('MTI1MTM1MzI3Mzk2OTkzODQ5NA.GGvk56.atzYCvMV5HLIMNHMEnnTYLQJqUIbiqvbvifHH0')
-# bot.run('MTIyMDkyNTcxMzU3NDY1ODExOQ.GJIK1U.ERyzS-pKV20LfVIQun24X0l2f9i17RYL5GWid0') BOT
+
+
 
 
 # $test 321321 juan 01/12/2004 01/12/2004 01/12/2004 
