@@ -15,11 +15,11 @@ db = manageDB()
 db.crear_tabla()
 matcheo.cargar_db(db.recibir_datos())
 
-# def check_channel(ctx):
-#      return ctx.channel.id == 1250230495128850494
+def check_channel(ctx):
+      return ctx.channel.id == 1250230495128850494
 
 @commands.command()
-# @commands.check(check_channel)
+@commands.check(check_channel)
 async def test(ctx,ingresado_franco_ofrecido=None , ingresado_franco_pedido=None):
 
         if not(ingresado_franco_ofrecido == None or ingresado_franco_pedido == None):
@@ -31,7 +31,6 @@ async def test(ctx,ingresado_franco_ofrecido=None , ingresado_franco_pedido=None
 
             matcheo.add_lists(op_ingresado)
             lista_resultados = matcheo.buscar_V4(op_ingresado)
-            # op_nombre_donante,francos_ofrecidos_op,op_nombre_aceptante
             for resultado in lista_resultados:
                  await ctx.send(f"{resultado[0].mention} tiene el franco ({resultado[1]}), que {resultado[2].mention}")
                  op_necesita = resultado[0]
@@ -60,7 +59,6 @@ async def tinder(ctx):
 @commands.command()
 async def msj(ctx):
      autor = ctx.author
-     
      await autor.send(autor)
 
 bot.add_command(test)
@@ -71,8 +69,6 @@ bot.add_command(msj)
 
 
 
-bot.run('MTI1MTM1MzI3Mzk2OTkzODQ5NA.GGvk56.atzYCvMV5HLIMNHMEnnTYLQJqUIbiqvbvifHH0')
-# bot.run('MTIyMDkyNTcxMzU3NDY1ODExOQ.GJIK1U.ERyzS-pKV20LfVIQun24X0l2f9i17RYL5GWid0') BOT
 
 
-# $test 321321 juan 01/12/2004 01/12/2004 01/12/2004 
+
