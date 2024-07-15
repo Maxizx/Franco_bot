@@ -67,13 +67,8 @@ bot.add_command(tinder)
 bot.add_command(msj)
 
 
+bot.run(TOKEN_DS)
 
 
 
 
-
-<<<<<<< HEAD
-=======
-
-# $test 321321 juan 01/12/2004 01/12/2004 01/12/2004 
->>>>>>> 1748b5aafe0650ba9e3a7f4a0a9e0632b3b8a402
