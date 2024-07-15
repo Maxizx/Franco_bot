@@ -67,7 +67,7 @@ bot.add_command(tinder)
 bot.add_command(msj)
 
 
-bot.run(TOKEN_DS)
+bot.run(TOKE_DS_SECRET)
 
 
 
